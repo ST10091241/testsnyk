@@ -1,0 +1,57 @@
+name: Flutter Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Change this to your main branch name
+  pull_request:
+    branches:
+      - main  # Change this to your main branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '2.x'  # Change to your Flutter version
+
+      - name: Get dependencies
+        run: flutter pub get
+
+      - name: Static code analysis
+        run: flutter analyze
+
+      - name: Run unit tests
+        run: flutter test
+
+      - name: Run integration tests
+        run: flutter drive --target=test_driver/app.dart
+
+      # Add steps for regression testing, functional testing, etc.
+      - name: Install Snyk CLI
+        run: |
+          curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          sudo npm install -g snyk
+
+      - name: Security testing with Snyk
+        run: |
+          snyk auth 4e6b09ff-d021-4361-a722-c7a64ec29f6f 
+          snyk test --all-projects --severity-threshold=high  
+
+      - name: Build APK
+        run: flutter build apk --release
+
+      # Add steps for generating reports or any additional post-build processes
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: app-release
+          path: build/app/outputs/flutter-apk/app-release.apk
