@@ -21,17 +21,7 @@ jobs:
         with:
           channel: 'stable'
       - run: flutter --version       
-
-      - name: Install Snyk CLI
-        run: |
-          curl -sL https://deb.nodesource.com/setup_19.x | sudo -E bash -
-          sudo apt-get install -y nodejs
-          sudo npm install -g snyk
-
-      - name: Security testing with Snyk
-        run: |
-          snyk auth SNYK_TOKEN=4e6b09ff-d021-4361-a722-c7a64ec29f6f
-          snyk test --all-projects --severity-threshold=high  
+      
 
       - name: Build APK
         run: flutter build apk --release
@@ -43,3 +33,13 @@ jobs:
         with:
           name: app-release
           path: build/app/outputs/flutter-apk/app-release.apk
+      - name: Install Snyk CLI
+        run: |
+          curl -sL https://deb.nodesource.com/setup_19.x | sudo -E bash -
+          sudo apt-get install -y nodejs
+          sudo npm install -g snyk
+
+      - name: Security testing with Snyk
+        run: |
+          snyk auth SNYK_TOKEN=4e6b09ff-d021-4361-a722-c7a64ec29f6f
+          snyk test --all-projects --severity-threshold=high  
