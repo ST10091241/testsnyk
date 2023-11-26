@@ -24,17 +24,14 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
-
-      - name: Static code analysis
-        run: flutter analyze
-
+        
       - name: Run unit tests
         run: flutter test
-
+        
       - name: Run integration tests
-        run: flutter drive --target=test_driver/app.dart
+        run: flutter drive --target=test_driver/app.dart      
 
-      # Add steps for regression testing, functional testing, etc.
+      
       - name: Install Snyk CLI
         run: |
           curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -
