@@ -27,7 +27,7 @@ jobs:
         run: flutter build apk --release
 
       # Add steps for generating reports or any additional post-build processes
-
+      - run: mkdir -p build/app/outputs/flutter-apk
       - name: Upload APK artifact
         uses: actions/upload-artifact@v2
         with:
