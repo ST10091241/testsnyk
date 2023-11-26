@@ -30,7 +30,7 @@ jobs:
 
       - name: Security testing with Snyk
         run: |
-          snyk auth 
+          snyk auth SNYK_TOKEN=4e6b09ff-d021-4361-a722-c7a64ec29f6f
           snyk test --all-projects --severity-threshold=high  
 
       - name: Build APK
