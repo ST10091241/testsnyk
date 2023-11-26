@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/components/Auth_Provider.dart';
+import 'package:flutter_application_1/components/Auth-Provider.dart';
 import 'package:flutter_application_1/observer/AuthRouteObserver.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -22,9 +22,9 @@ void main() {
   });
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    Auth_Provider  authProvider = Auth_Provider ();
+    Auth_Provider authProvider = Auth_Provider();
     AuthRouteObserver authRouteObserver = AuthRouteObserver(authProvider);
-    await tester.pumpWidget(MyApp(Auth_Provider: authProvider,
+    await tester.pumpWidget(MyApp(authProvider: authProvider,
       authRouteObserver: authRouteObserver,));
 
     // Verify that our counter starts at 0.
